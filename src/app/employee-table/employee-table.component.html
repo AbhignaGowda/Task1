@@ -1,0 +1,113 @@
+<!-- employee-table.component.html -->
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <h1 class="page-title">
+      <span class="title-icon">👥</span>
+      Employee Time Tracking Dashboard
+    </h1>
+    <div class="stats-cards" *ngIf="!isLoading && employees.length > 0">
+      <div class="stat-card">
+        <div class="stat-value">{{ employees.length }}</div>
+        <div class="stat-label">Total Employees</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{{ totalHours }}</div>
+        <div class="stat-label">Total Hours</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{{ (totalHours / employees.length).toFixed(1) }}</div>
+        <div class="stat-label">Avg Hours/Employee</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Loading employee data...</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-grid" *ngIf="!isLoading && employees.length > 0">
+    <!-- Employee Table -->
+    <div class="table-section">
+      <div class="section-header">
+        <h2 class="section-title">Employee Performance</h2>
+        <div class="table-controls">
+          <div class="legend">
+            <span class="legend-item critical">🚨 Critical (&lt;100 hrs)</span>
+            <span class="legend-item excellent">🏆 Excellent (160+ hrs)</span>
+            <span class="legend-item good">⭐ Good (120+ hrs)</span>
+            <span class="legend-item average">👍 Average (80+ hrs)</span>
+            <span class="legend-item below-average">⚠️ Below Average (80-99 hrs)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="table-container">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th class="rank-column">#</th>
+              <th class="name-column">Employee Name</th>
+              <th class="hours-column">Total Hours</th>
+              <th class="percentage-column">% of Total</th>
+              <th class="performance-column">Performance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let emp of employees; let i = index" 
+                [class]="'row-' + getPerformanceLevel(emp.totalTime)">
+              <td class="rank-cell">
+                <span class="rank-badge" [class]="'rank-' + (i + 1)">{{ i + 1 }}</span>
+              </td>
+              <td class="name-cell">
+                <div class="employee-info">
+                  <div class="employee-avatar">{{ emp.name.charAt(0).toUpperCase() }}</div>
+                  <span class="employee-name">{{ emp.name }}</span>
+                </div>
+              </td>
+              <td class="hours-cell">
+                <div class="hours-display">
+                  <span class="hours-number">{{ emp.totalTime }}</span>
+                  <span class="hours-unit">hrs</span>
+                </div>
+              </td>
+              <td class="percentage-cell">
+                <div class="percentage-bar">
+                  <div class="percentage-fill" 
+                       [style.width.%]="(emp.totalTime / totalHours) * 100"></div>
+                  <span class="percentage-text">{{ ((emp.totalTime / totalHours) * 100).toFixed(1) }}%</span>
+                </div>
+              </td>
+              <td class="performance-cell">
+                <div class="performance-badge" [class]="'performance-' + getPerformanceLevel(emp.totalTime)">
+                  <span class="performance-icon">{{ getPerformanceIcon(emp.totalTime) }}</span>
+                  <span class="performance-text">{{ getPerformanceLevel(emp.totalTime) | titlecase }}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="chart-section">
+      <div class="section-header">
+        <h2 class="section-title">Time Distribution</h2>
+      </div>
+      <div class="chart-container">
+        <canvas #pieCanvas></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && employees.length === 0">
+    <div class="empty-icon">📊</div>
+    <h3 class="empty-title">No Employee Data Available</h3>
+    <p class="empty-description">There are currently no time entries to display. Please check back later.</p>
+  </div>
+</div>
