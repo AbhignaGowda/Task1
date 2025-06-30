@@ -391,51 +391,14 @@
   opacity: 0.8;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 1rem;
-  }
-  
-  .page-title {
-    font-size: 2rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .stats-cards {
-    grid-template-columns: 1fr;
-  }
-  
-  .table-section,
-  .chart-section {
-    padding: 1rem;
-  }
-  
-  .legend {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .modern-table th,
-  .modern-table td {
-    padding: 0.5rem;
-    font-size: 0.8rem;
-  }
-  
-  .employee-info {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .employee-avatar {
-    width: 32px;
-    height: 32px;
-    font-size: 0.9rem;
-  }
+
+:root {
+  --primary-color: #3B82F6;
+  --success-color: #10B981;
+  --warning-color: #F59E0B;
+  --danger-color: #EF4444;
+  --background-light: #f3f4f6;
 }
-/* employee-table.component.css */
 
 .dashboard-container {
   padding: 1rem;
@@ -466,12 +429,13 @@
 }
 
 .stat-card {
-  background-color: #f3f4f6;
+  background-color: var(--background-light);
   padding: 1rem;
   border-radius: 0.5rem;
   text-align: center;
   min-width: 120px;
   flex: 1 1 100px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
 .stat-value {
@@ -494,10 +458,10 @@
   width: 100%;
   border-collapse: collapse;
   min-width: 600px;
+  display: grid;
 }
 
-.modern-table th, 
-.modern-table td {
+.modern-table th, .modern-table td {
   padding: 0.75rem;
   border-bottom: 1px solid #ddd;
   text-align: left;
@@ -517,11 +481,40 @@
   margin: 1rem 0;
 }
 
-.loading-container,
+.loading-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading-container::after {
+  content: '';
+  display: block;
+  margin: 1rem auto;
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--primary-color);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .empty-state {
   text-align: center;
   padding: 2rem;
-  font-size: 1.2rem;
+}
+
+.empty-state button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -530,7 +523,7 @@
     flex-direction: column;
   }
 
-  .stat-cards {
+  .stats-cards {
     flex-direction: column;
     align-items: center;
   }
