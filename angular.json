@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-                "baseHref": "./",
+            "baseHref": "./",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -22,7 +22,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
@@ -31,6 +32,7 @@
           },
           "configurations": {
             "production": {
+              "outputHashing": "all",
               "budgets": [
                 {
                   "type": "initial",
@@ -43,7 +45,6 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -86,7 +87,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
