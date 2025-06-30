@@ -39,7 +39,7 @@ Only valid (non-deleted) entries are considered for aggregation.
 - [Angular CLI](https://angular.io/cli)
 
 ### Output!
-[Screenshot from 2025-06-30 17-56-10](https://github.com/user-attachments/assets/489b9309-55cb-4a48-b476-a894a0366b9a)
+![Screenshot from 2025-06-30 17-56-10](https://github.com/user-attachments/assets/489b9309-55cb-4a48-b476-a894a0366b9a)
 
 ![Screenshot from 2025-06-30 17-55-59](https://github.com/user-attachments/assets/896cf10e-fdf8-496e-83c0-f06e5409de94)
 
