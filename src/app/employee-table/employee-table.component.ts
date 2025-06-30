@@ -1,7 +1,7 @@
 // employee-table.component.ts
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { EmployeeService } from '../../app/employee-service';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -18,32 +18,15 @@ export class EmployeeTableComponent implements OnInit {
   isLoading = true;
   totalHours = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    const apiUrl = 'https://rc-vault-fap-live-1.azurewebsites.net/api/gettimeentries?code=vO17RnE8vuzXzPJo5eaLLjXjmRW07law99QTD90zat9FfOQJKKUcgQ==';
-    
-    this.http.get<any[]>(apiUrl).subscribe({
-      next: (entries) => {
-        const totals: { [key: string]: number } = {};
-        entries.forEach(entry => {
-          if (entry.EmployeeName && entry.StarTimeUtc && entry.EndTimeUtc && !entry.DeletedOn) {
-            const start = new Date(entry.StarTimeUtc);
-            const end = new Date(entry.EndTimeUtc);
-            const diffHours = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
-            if (diffHours > 0) {
-              totals[entry.EmployeeName] = (totals[entry.EmployeeName] || 0) + diffHours;
-            }
-          }
-        });
-
-        this.employees = Object.entries(totals)
-          .map(([name, totalTime]) => ({ name, totalTime: Math.round(totalTime) }))
-          .sort((a, b) => b.totalTime - a.totalTime);
-        
+    this.isLoading = true;
+    this.employeeService.getEmployeeTotalTime().subscribe({
+      next: (data) => {
+        this.employees = data;
         this.totalHours = this.employees.reduce((sum, emp) => sum + emp.totalTime, 0);
         this.isLoading = false;
-        
         setTimeout(() => this.createPieChart(), 0);
       },
       error: (error) => {
@@ -60,12 +43,10 @@ export class EmployeeTableComponent implements OnInit {
 
     const labels = this.employees.map(e => e.name);
     const data = this.employees.map(e => e.totalTime);
-    
-    // Generate colors dynamically
     const colors = this.generateColors(this.employees.length);
 
     this.pieChart = new Chart(this.pieCanvas.nativeElement, {
-      type: 'doughnut', // Changed to doughnut for modern look
+      type: 'doughnut',
       data: {
         labels: labels,
         datasets: [{
@@ -106,16 +87,12 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   generateColors(count: number): string[] {
-    const colors = [
-      '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6',
-      '#06B6D4', '#84CC16', '#F97316', '#EC4899', '#6366F1'
-    ];
-    
-    while (colors.length < count) {
-      colors.push(`hsl(${Math.floor(Math.random() * 360)}, 65%, 55%)`);
+    const colors: string[] = [];
+    for (let i = 0; i < count; i++) {
+      const hue = Math.floor((360 / count) * i);
+      colors.push(`hsl(${hue}, 65%, 55%)`);
     }
-    
-    return colors.slice(0, count);
+    return colors;
   }
 
   getPerformanceLevel(hours: number): string {
@@ -134,3 +111,4 @@ export class EmployeeTableComponent implements OnInit {
     return '⚠️';
   }
 }
+

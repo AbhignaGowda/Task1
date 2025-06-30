@@ -435,3 +435,115 @@
     font-size: 0.9rem;
   }
 }
+/* employee-table.component.css */
+
+.dashboard-container {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.stats-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.stat-card {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  min-width: 120px;
+  flex: 1 1 100px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.modern-table th, 
+.modern-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.performance-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chart-container {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  margin: 1rem 0;
+}
+
+.loading-container,
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.5rem;
+    flex-direction: column;
+  }
+
+  .stat-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-card {
+    min-width: 140px;
+  }
+
+  .modern-table {
+    min-width: 100%;
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+}
