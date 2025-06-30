@@ -37,6 +37,10 @@ Only valid (non-deleted) entries are considered for aggregation.
 
 - [Node.js](https://nodejs.org/en) (v18+ recommended)  
 - [Angular CLI](https://angular.io/cli)  
+###Output
+
+![Screenshot from 2025-06-30 17-08-08](https://github.com/user-attachments/assets/785aa843-f9fa-4402-92bb-b40069c77922)
+
 
 ### Installation
 
