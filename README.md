@@ -36,8 +36,12 @@ Only valid (non-deleted) entries are considered for aggregation.
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en) (v18+ recommended)  
-- [Angular CLI](https://angular.io/cli)  
-###Output
+- [Angular CLI](https://angular.io/cli)
+
+### Output!
+[Screenshot from 2025-06-30 17-56-10](https://github.com/user-attachments/assets/489b9309-55cb-4a48-b476-a894a0366b9a)
+
+![Screenshot from 2025-06-30 17-55-59](https://github.com/user-attachments/assets/896cf10e-fdf8-496e-83c0-f06e5409de94)
 
 ![Screenshot from 2025-06-30 17-08-08](https://github.com/user-attachments/assets/785aa843-f9fa-4402-92bb-b40069c77922)
 
